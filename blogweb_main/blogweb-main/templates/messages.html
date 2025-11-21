@@ -1,0 +1,7 @@
+{% if messages %}
+    {% for message in messages %}
+        {% if forloop.last %}
+            <div id="messageAlert" class="alert alert-{{ message.tags }}" role="alert" style="border-radius: 10px;">{{ message|safe }}</div>
+        {% endif %}
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Weledi Blog{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        {% include 'messages.html' %}
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center mb-4 text-primary">Login - Weledi Blog</h4>
+
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+
+                    <!-- Username -->
+                    <div class="mb-3 position-relative">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3 position-relative">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                            <button type="button" class="btn btn-outline-secondary" style="outline: slategray;" id="togglePassword">
+                                <i class="bi bi-eye-fill" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                        {% if is_invalid %}
+                        <div>
+                            <small class="form-text text-danger fw-bold" style="font-size: x-small;">Invalid Credentials</small>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">SUBMIT</button>
+                    </div>
+
+                    <!-- Optional links -->
+                    <div class="text-center mt-3">
+                        <a href="#">Forgot password?</a> | <a href="#">Signup</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('password');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    togglePassword.addEventListener('click', function () {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+
+        // Toggle icon
+        toggleIcon.classList.toggle('bi-eye-fill');
+        toggleIcon.classList.toggle('bi-eye-slash-fill');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Signup - Weledi Blog{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center mb-4 text-primary">Signup</h4>
+
+                <form method="POST" action="{% url 'signup' %}">
+                    {% csrf_token %}
+
+                    <!-- First and Last Name in one row -->
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required>
+                        </div>
+                        <div class="col">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required>
+                        </div>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="mb-3 position-relative">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3 position-relative">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                <i class="bi bi-eye-fill" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="mb-3 position-relative">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                            <input type="password" class="form-control" id="confirm_password" placeholder="Confirm password" required>
+                            <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
+                                <i class="bi bi-eye-fill" id="toggleConfirmIcon"></i>
+                            </button>
+                        </div>
+                        <div class="form-text text-danger" id="passwordMismatch" style="display: none;">
+                            Passwords do not match!
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary" id="signupButton">Signup</button>
+                    </div>
+
+                    <!-- Optional link -->
+                    <div class="text-center mt-3">
+                        Already have an account? <a href="{% url 'login' %}">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Password visibility toggles
+    const password = document.getElementById('password');
+    const togglePassword = document.getElementById('togglePassword');
+    const toggleIcon = document.getElementById('toggleIcon');
+
+    togglePassword.addEventListener('click', function () {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        toggleIcon.classList.toggle('bi-eye-fill');
+        toggleIcon.classList.toggle('bi-eye-slash-fill');
+    });
+
+    const confirmPassword = document.getElementById('confirm_password');
+    const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+    const toggleConfirmIcon = document.getElementById('toggleConfirmIcon');
+
+    toggleConfirmPassword.addEventListener('click', function () {
+        const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirmPassword.setAttribute('type', type);
+        toggleConfirmIcon.classList.toggle('bi-eye-fill');
+        toggleConfirmIcon.classList.toggle('bi-eye-slash-fill');
+    });
+
+    // Simple password match validation
+    const signupButton = document.getElementById('signupButton');
+    const passwordMismatch = document.getElementById('passwordMismatch');
+
+    signupButton.addEventListener('click', function (e) {
+        if (password.value !== confirmPassword.value) {
+            e.preventDefault(); // Stop form submission
+            passwordMismatch.style.display = 'block';
+        } else {
+            passwordMismatch.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

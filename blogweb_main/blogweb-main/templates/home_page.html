@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}News Feed{% endblock %}
+
+{% block content %}
+    <style>
+        .news-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        }
+        .news-header {
+            border-bottom: 2px solid slategrey;
+            padding-bottom: 0.5rem;
+        }
+        .read-more {
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+<div class="row justify-content-center">
+    {% include 'messages.html' %}
+    <div class="col-lg-12">
+        <!-- Header -->
+        <p class="news-header text-secondary mb-4 display-6" style="font-size: larger;">
+            News Today
+        </p>
+
+        <!-- News Cards -->
+        {% for post in posts %}
+        <div class="card news-card shadow-sm mb-4">
+            <div class="card-body">
+                <!-- Post Title -->
+                <h5 class="card-title text-success">{{ post.title|upper }}</h5>
+
+                <!-- Author and Read Time -->
+                <div class="d-flex align-items-center text-muted mb-2">
+                    <span class="news-author text-secondary">By @{{ post.author }}</span>
+                    <span class="mx-2">·</span>
+                    <span class="news-minutes"><i class="bi bi-clock me-1"></i>{{ post.minutes }} min read</span>
+                </div>
+
+                <!-- Body -->
+                <p class="card-text text-dark">{{ post.body }}</p>
+
+                <!-- Footer -->
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <small class="text-muted"><i class="bi bi-calendar me-1"></i>Published on {{ post.created }}</small>
+                    <a href="#" class="read-more text-primary">Read More <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Pagination (example) -->
+        <nav aria-label="News pagination" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

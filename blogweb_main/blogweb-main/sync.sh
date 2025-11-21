@@ -1,0 +1,1 @@
+git pull && python3 manage.py collectstatic --noinput && python3 manage.py migrate && sudo systemctl daemon-reload && sudo systemctl restart blogweb.service && sudo systemctl restart nginx

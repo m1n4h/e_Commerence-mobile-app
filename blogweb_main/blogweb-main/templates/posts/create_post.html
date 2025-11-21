@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Create Post - Weledi Blog{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center mb-4 text-primary">Create a New Post</h4>
+
+                <form method="POST" action="{% url 'create-post' %}">
+                    {% csrf_token %}
+
+                    <!-- Title -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Enter post title" required>
+                    </div>
+
+                    <!-- Read Minutes -->
+                    <div class="mb-3">
+                        <label for="minutes" class="form-label">Read Time (minutes)</label>
+                        <input type="number" class="form-control" id="minutes" name="minutes" placeholder="E.g. 5">
+                    </div>
+
+                    <!-- Body -->
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Post Content</label>
+                        <textarea class="form-control" id="body" name="body" rows="6" placeholder="Write your post here..." required></textarea>
+                    </div>
+
+                    <!-- Published -->
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="published" name="published">
+                        <label class="form-check-label" for="published">
+                            Publish now
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn btn-primary">Submit Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
