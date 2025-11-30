@@ -1,0 +1,34 @@
+import 'package:ecommerce_app/models/product.dart';
+import 'package:ecommerce_app/view/product_details_screen.dart';
+import 'package:ecommerce_app/view/widgets/product_card.dart';
+import 'package:flutter/material.dart';
+
+class ProductGrid extends StatelessWidget {
+  const ProductGrid({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      padding: const EdgeInsets.all(20),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.75,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
+      ),
+      itemCount: product.length, // <-- Use the correct list name
+      itemBuilder: (context, index) {
+        final item = product[index]; // <-- Use the correct list name
+        return GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+             MaterialPageRoute(
+              builder: (context) => ProductDetailsScreen(
+              product: item
+             ),)),
+          child: ProductCard(product: item),
+        ); // <-- missing semicolon fixed
+      },
+    );
+  }
+}

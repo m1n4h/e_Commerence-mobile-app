@@ -5,11 +5,25 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTextStyle {
   // headings
   static TextStyle h1 = GoogleFonts.poppins(
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: FontWeight.w700,
     height: 1.2,
     letterSpacing: -0.5,
   );
+  static TextStyle h2 = GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    height: 1.2,
+    letterSpacing: -0.5,
+  );
+
+static TextStyle h3 = GoogleFonts.poppins(
+    fontSize: 15,
+    fontWeight: FontWeight.w700,
+    height: 1.2,
+    letterSpacing: -0.5,
+  );
+
 
   // body text
   static TextStyle bodyLarge = GoogleFonts.poppins(
@@ -48,11 +62,12 @@ class AppTextStyle {
   );
 
   // helper function for color and weight variations
-  static TextStyle withColor(TextStyle style, Color color) {
+  static TextStyle withColor(TextStyle style, Color color, ) {
     return style.copyWith(color: color);
   }
 
   static TextStyle withWeight(TextStyle style, FontWeight weight) {
     return style.copyWith(fontWeight: weight);
   }
+
 }
